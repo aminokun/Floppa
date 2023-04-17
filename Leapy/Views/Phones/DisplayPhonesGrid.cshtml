@@ -1,22 +1,21 @@
-﻿@model List<Leapy.Data.DataModels.Book>
+﻿@model List<Leapy.Data.DataModels.Phone>
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>DisplayBooksGrid</title>
+    <title>DisplayPhoneGrid</title>
     <style>
-        .book-grid {
+        .phone-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
 
-        .book-item {
+        .phone-item {
             border: 1px solid #ccc;
             padding: 10px;
         }
-
         .title {
             font-size: 15px;
         }
@@ -27,16 +26,14 @@
     </style>
 </head>
 <body>
-    <div class="book-grid">
+    <div class="phone-grid">
 
-        @foreach (var book in Model)
+        @foreach (var phone in Model)
         {
-            <div class="book-item">
-                <img class="book-image" src="@book.ImageUrl" />
-                <h2 class ="title">@book.Title</h2>
-                <p class="price">$@book.Price</p>
-                <p>@book.UPC</p>
-
+            <div class="phone-item">
+                <img class="book-image" src="@phone.ImageUrl" />
+                <h2 class="title">@phone.Title</h2>
+                <p class="price">$@phone.Price</p>
             </div>
         }
     </div>

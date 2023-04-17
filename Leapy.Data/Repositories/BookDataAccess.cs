@@ -23,6 +23,7 @@ namespace Leapy.Data.Repositories
                 book.ImageUrl = reader["ImageUrl"].ToString();
                 book.Title = reader["title"].ToString();
                 book.Price = Convert.ToDecimal(reader["price"]);
+                book.UPC = reader["upc"].ToString();
 
                 books.Add(book);
             }
