@@ -1,0 +1,29 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+header {
+    /*background: linear-gradient(#fed6c7, #fc873e);*/
+    /*background: radial-gradient(circle, #fc873e, #2C2F33)*/
+    background: radial-gradient(circle, rgba(231,103,24,1) 0%, rgba(189,0,29,1) 50%, rgba(83,0,13,1) 100%);
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.logo {
+    max-width: 120px;
+    max-height: 120px;
+}

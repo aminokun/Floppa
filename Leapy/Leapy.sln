@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leapy", "Leapy.csproj", "{6DFF01C4-DD0E-4B01-A4F6-33BDA76A1A9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leapy.Logic", "..\Leapy.Logic\Leapy.Logic.csproj", "{98D7C3C9-F356-4780-A10F-25A7A45009BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leapy.Data", "..\Leapy.Data\Leapy.Data.csproj", "{9B8B475B-79F7-4D16-804E-31DA8C1EC608}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DFF01C4-DD0E-4B01-A4F6-33BDA76A1A9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DFF01C4-DD0E-4B01-A4F6-33BDA76A1A9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DFF01C4-DD0E-4B01-A4F6-33BDA76A1A9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DFF01C4-DD0E-4B01-A4F6-33BDA76A1A9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98D7C3C9-F356-4780-A10F-25A7A45009BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98D7C3C9-F356-4780-A10F-25A7A45009BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98D7C3C9-F356-4780-A10F-25A7A45009BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98D7C3C9-F356-4780-A10F-25A7A45009BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8B475B-79F7-4D16-804E-31DA8C1EC608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8B475B-79F7-4D16-804E-31DA8C1EC608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8B475B-79F7-4D16-804E-31DA8C1EC608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8B475B-79F7-4D16-804E-31DA8C1EC608}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {505B7744-9757-4835-ADF4-A297C1103408}
+	EndGlobalSection
+EndGlobal
