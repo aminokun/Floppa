@@ -5,9 +5,10 @@ namespace Leapy.Data.Repositories
 {
     public class PhoneRepository
     {
+        string connectionString = "Server=192.168.178.27,3306;Database=Phones;Uid=Scraper;Pwd=123Scraper21!;";
+            
         public List<Phone> GetPhones()
         {
-            string connectionString = "Server=192.168.178.27,3306;Database=Phones;Uid=Scraper;Pwd=123Scraper21!;";
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 

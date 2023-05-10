@@ -1,48 +1,39 @@
 ﻿using Leapy.Logic.Services;
-using Leapy.Logic.Models;
 using Leapy.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Identity;
 
 namespace Leapy.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UserService _userService;
-        private readonly SignInManager<User> _signInManager;
 
-        public AccountController(UserService userService, SignInManager<User> signInManager)
+        public AccountController(UserService userService)
         {
             _userService = userService;
-            _signInManager = signInManager;
         }
 
         [HttpGet]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login()
         {
-            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public IActionResult Login(LoginViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
+                if (_userService.Authenticate(model.Email, model.Password))
                 {
-                    return RedirectToLocal(returnUrl);
+                    // TODO: Implement authentication logic
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    ViewBag.ErrorMessage = "Invalid email or password";
                 }
             }
+
             return View(model);
         }
 
@@ -52,48 +43,54 @@ namespace Leapy.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new User { Username = model.Username, Email = model.Email };
-                var result = await _userService.CreateUserAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
-            }
-            return View(model);
-        }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            await _signInManager.SignOutAsync();
+            // Check if the model is valid
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // Check if a user with the same email already exists
+            var existingUser = await _userService.GetUserByEmailAsync(model.Email);
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("Email", "A user with this email already exists.");
+                return View(model);
+            }
+
+            // Check if a user with the same username already exists
+            existingUser = await _userService.GetUserByUsernameAsync(model.Username);
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("Username", "A user with this username already exists.");
+                return View(model);
+            }
+
+            // Check if the passwords match
+            if (model.Password != model.ConfirmPassword)
+            {
+                ModelState.AddModelError("ConfirmPassword", "The password confirmation does not match the password.");
+                return View(model);
+            }
+
+            _userService.Register(model.Username, model.Email, model.Password);
+
             return RedirectToAction("Index", "Home");
         }
 
-        private IActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
+        //[HttpPost]
+        //public IActionResult Register(RegisterViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _userService.Register(model.Username, model.Email, model.Password);
+        //        // TODO: Implement registration confirmation logic
+        //    }
+
+        //    return View(model);
+        //}
     }
 }

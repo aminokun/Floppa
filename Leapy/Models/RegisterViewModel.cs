@@ -8,6 +8,10 @@ namespace Leapy.Models
         public string? Username { get; set; }
 
         [Required]
+        [EmailAddress]
+        public string? Email { get; set; }
+
+        [Required]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
 
@@ -16,9 +20,6 @@ namespace Leapy.Models
         [Compare("Password")]
         public string? ConfirmPassword { get; set; }
 
-        [Required]
-        [EmailAddress]
-        public string? Email { get; set; }
     }
 
 

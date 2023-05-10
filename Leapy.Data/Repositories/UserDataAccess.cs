@@ -1,48 +1,103 @@
 ﻿using MySql.Data.MySqlClient;
 using Leapy.Data.DataModels;
+using System.Data;
 
 namespace Leapy.Data.Repositories
 {
     public class UserDataAccess
     {
+        string connectionString = "Server=192.168.178.27,3306;Database=Users;Uid=Scraper;Pwd=123Scraper21!;";
 
-        string connectionString = "Server=192.168.178.27,3306;Database=Books;Uid=Scraper;Pwd=123Scraper21!;";
-
-        public async Task CreateUserAsync(User user)
+        public User? GetById(int id)
         {
-            using (var connection = new MySqlConnection(connectionString))
+            using var connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            var sql = "SELECT * FROM users WHERE id = @id";
+            var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@id", id);
+
+            using var reader = cmd.ExecuteReader();
+
+            if (reader.Read())
             {
-                await connection.OpenAsync();
-                var command = connection.CreateCommand();
-                command.CommandText = "INSERT INTO Users (Username, Password, Email) VALUES (@Username, @Password, @Email)";
-                command.Parameters.AddWithValue("@Username", user.Username);
-                command.Parameters.AddWithValue("@Password", user.Password);
-                command.Parameters.AddWithValue("@Email", user.Email);
-                await command.ExecuteNonQueryAsync();
+                return new User
+                {
+                    Id = reader.GetInt32("id"),
+                    Username = reader.GetString("username"),
+                    Email = reader.GetString("email"),
+                    Password = reader.GetString("password")
+                };
             }
+
+            return null;
         }
 
-        public User? GetUserByUsername(string username)
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
-            using (var connection = new MySqlConnection(connectionString))
+            using var connection = new MySqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            var sql = "SELECT * FROM Users WHERE email = @email";
+            var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@email", email);
+
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            if (await reader.ReadAsync())
             {
-                connection.Open();
-                var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM Users WHERE Username = @Username";
-                command.Parameters.AddWithValue("@Username", username);
-                var reader = command.ExecuteReader();
-                if (reader.Read())
+                return new User
                 {
-                    return new User
-                    {
-                        Id = reader.GetInt32("Id"),
-                        Username = reader.GetString("Username"),
-                        Password = reader.GetString("Password"),
-                        Email = reader.GetString("Email")
-                    };
-                }
-                return null;
+                    Id = reader.GetInt32("id"),
+                    Username = reader.GetString("username"),
+                    Email = reader.GetString("email"),
+                    Password = reader.GetString("password")
+                };
             }
+
+            return null;
+        }
+
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            using var connection = new MySqlConnection(connectionString);
+            await connection.OpenAsync();
+
+            var sql = "SELECT * FROM Users WHERE username = @username";
+            var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@username", username);
+
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            if (await reader.ReadAsync())
+            {
+                return new User
+                {
+                    Id = reader.GetInt32("id"),
+                    Username = reader.GetString("username"),
+                    Email = reader.GetString("email"),
+                    Password = reader.GetString("password")
+                };
+            }
+
+            return null;
+        }
+
+        public void AddUser(User user)
+        {
+            using var connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            var sql = "INSERT INTO Users (username, email, password) VALUES (@username, @email, @password)";
+            var cmd = new MySqlCommand(sql, connection);
+            cmd.Parameters.AddWithValue("@username", user.Username);
+            cmd.Parameters.AddWithValue("@email", user.Email);
+            cmd.Parameters.AddWithValue("@password", user.Password);
+
+            cmd.ExecuteNonQuery();
+
+            user.Id = (int)cmd.LastInsertedId;
         }
     }
+
 }

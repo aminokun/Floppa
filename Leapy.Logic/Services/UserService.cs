@@ -1,68 +1,80 @@
 ﻿using Leapy.Data.Repositories;
 using Leapy.Data.DataModels;
-using Org.BouncyCastle.Crypto.Generators;
-using System.Security.Cryptography;
-using BCrypt.Net;
 
 namespace Leapy.Logic.Services
 {
     public class UserService
     {
-        private readonly UserDataAccess _userDataAcces;
+        private readonly UserDataAccess _userDataAccess;
 
-        public UserService(UserDataAccess userDataAcces)
+        public UserService(UserDataAccess userDataAccess)
         {
-            _userDataAcces = userDataAcces;
+            _userDataAccess = userDataAccess;
         }
 
-        public async Task CreateUserAsync(string username, string password)
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
-            var user = new User { Username = username, Password = password };
-            if (!string.IsNullOrEmpty(password))
-            {
-                user.Password = HashPassword(password);
-            }
-            await _userDataAcces.CreateUserAsync(user);
+            return await _userDataAccess.GetUserByEmailAsync(email);
         }
 
-        public async Task<bool> CreateUserAsync(User user, string password)
+        public async Task<User?> GetUserByUsernameAsync(string username)
         {
-            if (!string.IsNullOrEmpty(password))
-            {
-                user.Password = HashPassword(password);
-            }
-            return await _userDataAcces.CreateUserAsync(user);
+            return await _userDataAccess.GetUserByUsernameAsync(username);
         }
 
-
-        public bool ValidateUser(string username, string password)
+        public bool Authenticate(string email, string password)
         {
-            var user = _userDataAcces.GetUserByUsername(username);
-            if (user != null && !string.IsNullOrEmpty(password))
-            {
-                return VerifyPassword(password, user.Password);
-            }
-            return false;
-        }
+            var userTask = _userDataAccess.GetUserByEmailAsync(email);
+            userTask.Wait();
+            var user = userTask.Result;
 
-
-
-        private string HashPassword(string password)
-        {
-            var salt = BCrypt.Net.BCrypt.GenerateSalt();
-
-            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
-
-            return hashedPassword;
-        }
-
-        private bool VerifyPassword(string password, string? hashedPassword)
-        {
-            if (hashedPassword == null)
+            if (user == null)
             {
                 return false;
             }
-            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+
+            return BCrypt.Net.BCrypt.Verify(password, user.Password);
         }
+
+
+        public void Register(string username, string email, string password)
+        {
+            var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
+
+            var user = new User
+            {
+                Username = username,
+                Email = email,
+                Password = passwordHash
+            };
+
+            if (_userDataAccess.GetUserByEmailAsync(email) != null)
+            {
+                throw new ArgumentException("User with the same email already exists");
+            }
+
+            if (_userDataAccess.GetUserByUsernameAsync(username) != null)
+            {
+                throw new ArgumentException("User with the same username already exists");
+            }
+
+            _userDataAccess.AddUser(user);
+        }
+
+        //public void Register(string username, string email, string password)
+        //{
+        //    var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
+
+        //    var user = new User
+        //    {
+        //        Username = username,
+        //        Email = email,
+        //        Password = passwordHash
+        //    };
+
+        //    _userDataAccess.AddUser(user);
+        //}
     }
+
+
 }
