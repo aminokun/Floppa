@@ -32,6 +32,25 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Phones" asp-action="DisplayPhonesGrid">Phones</a>
                         </li>
                     </ul>
+                    <div class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form class="form-inline" asp-area="" asp-controller="Account" asp-action="Logout" method="post">
+                                <button class="nav-link btn btn-link text-light" type="submit">Logout</button>
+                            </form>
+                        }
+                        else
+                        {
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        </ul>
+                        }
+                    </div>
                 </div>
             </div>
         </nav>

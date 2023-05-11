@@ -12,6 +12,9 @@
             gap: 20px;
         }
 
+        .phone-image {
+            margin-bottom: 20px;
+        }
         .phone-item {
             border: 1px solid #ccc;
             padding: 10px;
@@ -31,7 +34,7 @@
         @foreach (var phone in Model)
         {
             <div class="phone-item">
-                <img class="book-image" src="@phone.ImageUrl" />
+                <img class="phone-image" src="@phone.ImageUrl" />
                 <h2 class="title">@phone.Title</h2>
                 <p class="price">$@phone.Price</p>
             </div>

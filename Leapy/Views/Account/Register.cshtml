@@ -1,0 +1,44 @@
+﻿@model RegisterViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link rel="stylesheet" href="~/css/Register.css" asp-append-version="true"/>
+    <script src="~/js/Register.js" asp-append-version="true"></script>
+</head>
+<body>
+
+    <h2>Register</h2>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+    }
+
+    <div id="password-match-message" style="color: #721c24; display: none;">
+        <div class="alert alert-danger">@ViewBag.PasswordMatchError</div>
+    </div>
+
+    <form method="post" asp-action="Register" onsubmit="return validateForm()">
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control" name="username" />
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" />
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" name="password" />
+        </div>
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" class="form-control" name="confirmPassword" />
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</body>
+</html>
