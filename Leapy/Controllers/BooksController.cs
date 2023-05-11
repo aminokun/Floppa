@@ -1,4 +1,5 @@
 ﻿using Leapy.Logic.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leapy.Controllers
@@ -11,7 +12,7 @@ namespace Leapy.Controllers
         {
             _bookService = new BookService();
         }
-
+        [Authorize]
         public IActionResult DisplayBooksGrid()
         {
             var books = _bookService.GetBooks();

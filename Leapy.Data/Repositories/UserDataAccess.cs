@@ -83,10 +83,10 @@ namespace Leapy.Data.Repositories
             return null;
         }
 
-        public void AddUser(User user)
+        public async Task AddUserAsync(User user)
         {
             using var connection = new MySqlConnection(connectionString);
-            connection.Open();
+            await connection.OpenAsync();
 
             var sql = "INSERT INTO Users (username, email, password) VALUES (@username, @email, @password)";
             var cmd = new MySqlCommand(sql, connection);
@@ -94,7 +94,7 @@ namespace Leapy.Data.Repositories
             cmd.Parameters.AddWithValue("@email", user.Email);
             cmd.Parameters.AddWithValue("@password", user.Password);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
 
             user.Id = (int)cmd.LastInsertedId;
         }

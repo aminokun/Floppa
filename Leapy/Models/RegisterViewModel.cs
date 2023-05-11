@@ -20,6 +20,8 @@ namespace Leapy.Models
         [Compare("Password")]
         public string? ConfirmPassword { get; set; }
 
+        [Display(Name = "Remember me")]
+        public bool RememberMe { get; set; }
     }
 
 

@@ -37,7 +37,7 @@ namespace Leapy.Logic.Services
         }
 
 
-        public void Register(string username, string email, string password)
+        public async Task Register(string username, string email, string password)
         {
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
 
@@ -48,33 +48,19 @@ namespace Leapy.Logic.Services
                 Password = passwordHash
             };
 
-            if (_userDataAccess.GetUserByEmailAsync(email) != null)
+            var existingUser = await GetUserByEmailAsync(email);
+            if (existingUser != null)
             {
                 throw new ArgumentException("User with the same email already exists");
             }
 
-            if (_userDataAccess.GetUserByUsernameAsync(username) != null)
+            existingUser = await GetUserByUsernameAsync(username);
+            if (existingUser != null)
             {
                 throw new ArgumentException("User with the same username already exists");
             }
 
-            _userDataAccess.AddUser(user);
+            await _userDataAccess.AddUserAsync(user);
         }
-
-        //public void Register(string username, string email, string password)
-        //{
-        //    var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
-
-        //    var user = new User
-        //    {
-        //        Username = username,
-        //        Email = email,
-        //        Password = passwordHash
-        //    };
-
-        //    _userDataAccess.AddUser(user);
-        //}
     }
-
-
 }

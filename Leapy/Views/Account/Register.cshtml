@@ -5,15 +5,23 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Register</title>
-    <style>
-
-    </style>
+    <link rel="stylesheet" href="~/css/Register.css" asp-append-version="true"/>
+    <script src="~/js/Register.js" asp-append-version="true"></script>
 </head>
 <body>
 
     <h2>Register</h2>
 
-    <form method="post" asp-action="Register">
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+    }
+
+    <div id="password-match-message" style="color: #721c24; display: none;">
+        <div class="alert alert-danger">@ViewBag.PasswordMatchError</div>
+    </div>
+
+    <form method="post" asp-action="Register" onsubmit="return validateForm()">
         <div class="form-group">
             <label>Username</label>
             <input type="text" class="form-control" name="username" />
