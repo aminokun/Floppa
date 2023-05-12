@@ -50,7 +50,7 @@ namespace Leapy.Controllers
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var authProperties = new AuthenticationProperties
                 {
-                    IsPersistent = model.RememberMe
+                    IsPersistent = true
                 };
 
 
