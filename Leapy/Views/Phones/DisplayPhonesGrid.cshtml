@@ -1,4 +1,4 @@
-﻿@model List<Leapy.Data.DataModels.Phone>
+﻿@model List<Leapy.Data.DataModels.PhoneDTO>
 
 <!DOCTYPE html>
 <html>
@@ -18,9 +18,22 @@
         .phone-item {
             border: 1px solid #ccc;
             padding: 10px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s;
+        }
+
+        .phone-item:hover {
+            transform: scale(1.05);
+        }
+
+        .phone-item:hover .title {
+            color: inherit;
+            color: black;
         }
         .title {
             font-size: 15px;
+            color: black;
         }
 
         .price {
@@ -30,14 +43,13 @@
 </head>
 <body>
     <div class="phone-grid">
-
         @foreach (var phone in Model)
         {
-            <div class="phone-item">
+            <a href="/Phones/Details/@phone.ArtNr" class="phone-item">
                 <img class="phone-image" src="@phone.ImageUrl" />
                 <h2 class="title">@phone.Title</h2>
                 <p class="price">$@phone.Price</p>
-            </div>
+            </a>
         }
     </div>
 </body>

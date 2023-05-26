@@ -12,12 +12,12 @@ namespace Leapy.Logic.Services
             _userDataAccess = userDataAccess;
         }
 
-        public async Task<User?> GetUserByEmailAsync(string email)
+        public async Task<UserDTO?> GetUserByEmailAsync(string email)
         {
             return await _userDataAccess.GetUserByEmailAsync(email);
         }
 
-        public async Task<User?> GetUserByUsernameAsync(string username)
+        public async Task<UserDTO?> GetUserByUsernameAsync(string username)
         {
             return await _userDataAccess.GetUserByUsernameAsync(username);
         }
@@ -41,7 +41,7 @@ namespace Leapy.Logic.Services
         {
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
 
-            var user = new User
+            var user = new UserDTO
             {
                 Username = username,
                 Email = email,

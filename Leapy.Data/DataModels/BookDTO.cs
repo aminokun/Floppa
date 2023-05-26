@@ -1,6 +1,6 @@
-﻿namespace Leapy.Logic.Models
+﻿namespace Leapy.Data.DataModels
 {
-    public class Book
+    public class BookDTO
     {
         public string? ImageUrl { get; set; }
         public string? Title { get; set; }

@@ -24,5 +24,13 @@ namespace Leapy.Controllers
 
             return View(phones);
         }
+        public IActionResult Details(int ArtNr)
+        {
+            var phone = _phoneService.GetPhoneByArtNr(ArtNr);
+
+
+            return View(phone);
+        }
+
     }
 }

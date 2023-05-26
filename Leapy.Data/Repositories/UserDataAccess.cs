@@ -1,19 +1,20 @@
 ﻿using MySql.Data.MySqlClient;
 using Leapy.Data.DataModels;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace Leapy.Data.Repositories
 {
     public class UserDataAccess
     {
-        string connectionString = "Server=192.168.178.27,3306;Database=Users;Uid=Scraper;Pwd=123Scraper21!;";
+        string connectionString = "Server=192.168.178.27,3306;Database=Leapy;Uid=Scraper;Pwd=123Scraper21!;";
 
-        public User? GetById(int id)
+        public UserDTO? GetById(int id)
         {
             using var connection = new MySqlConnection(connectionString);
             connection.Open();
 
-            var sql = "SELECT * FROM users WHERE id = @id";
+            var sql = "SELECT * FROM users WHERE UserID = @id";
             var cmd = new MySqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("@id", id);
 
@@ -21,9 +22,9 @@ namespace Leapy.Data.Repositories
 
             if (reader.Read())
             {
-                return new User
+                return new UserDTO
                 {
-                    Id = reader.GetInt32("id"),
+                    UserID = reader.GetInt32("UserID"),
                     Username = reader.GetString("username"),
                     Email = reader.GetString("email"),
                     Password = reader.GetString("password")
@@ -33,12 +34,12 @@ namespace Leapy.Data.Repositories
             return null;
         }
 
-        public async Task<User?> GetUserByEmailAsync(string email)
+        public async Task<UserDTO?> GetUserByEmailAsync(string email)
         {
             using var connection = new MySqlConnection(connectionString);
             await connection.OpenAsync();
 
-            var sql = "SELECT * FROM Users WHERE email = @email";
+            var sql = "SELECT * FROM users WHERE email = @email";
             var cmd = new MySqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("@email", email);
 
@@ -46,9 +47,9 @@ namespace Leapy.Data.Repositories
 
             if (await reader.ReadAsync())
             {
-                return new User
+                return new UserDTO
                 {
-                    Id = reader.GetInt32("id"),
+                    UserID = reader.GetInt32("UserID"),
                     Username = reader.GetString("username"),
                     Email = reader.GetString("email"),
                     Password = reader.GetString("password")
@@ -58,12 +59,12 @@ namespace Leapy.Data.Repositories
             return null;
         }
 
-        public async Task<User?> GetUserByUsernameAsync(string username)
+        public async Task<UserDTO?> GetUserByUsernameAsync(string username)
         {
             using var connection = new MySqlConnection(connectionString);
             await connection.OpenAsync();
 
-            var sql = "SELECT * FROM Users WHERE username = @username";
+            var sql = "SELECT * FROM users WHERE username = @username";
             var cmd = new MySqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("@username", username);
 
@@ -71,9 +72,9 @@ namespace Leapy.Data.Repositories
 
             if (await reader.ReadAsync())
             {
-                return new User
+                return new UserDTO
                 {
-                    Id = reader.GetInt32("id"),
+                    UserID = reader.GetInt32("UserID"),
                     Username = reader.GetString("username"),
                     Email = reader.GetString("email"),
                     Password = reader.GetString("password")
@@ -83,12 +84,12 @@ namespace Leapy.Data.Repositories
             return null;
         }
 
-        public async Task AddUserAsync(User user)
+        public async Task AddUserAsync(UserDTO user)
         {
             using var connection = new MySqlConnection(connectionString);
             await connection.OpenAsync();
 
-            var sql = "INSERT INTO Users (username, email, password) VALUES (@username, @email, @password)";
+            var sql = "INSERT INTO users (username, email, password) VALUES (@username, @email, @password)";
             var cmd = new MySqlCommand(sql, connection);
             cmd.Parameters.AddWithValue("@username", user.Username);
             cmd.Parameters.AddWithValue("@email", user.Email);
@@ -96,8 +97,7 @@ namespace Leapy.Data.Repositories
 
             await cmd.ExecuteNonQueryAsync();
 
-            user.Id = (int)cmd.LastInsertedId;
+            user.UserID = (int)cmd.LastInsertedId;
         }
     }
-
 }

@@ -5,18 +5,22 @@ namespace Leapy.Logic.Services
 {
     public class PhoneService
     {
-        private readonly PhoneRepository _phoneRepository;
+        private readonly PhoneDataAccess _phoneDataAccess;
 
         public PhoneService()
         {
-            _phoneRepository = new PhoneRepository();
+            _phoneDataAccess = new PhoneDataAccess();
         }
 
-        public List<Phone> GetPhones()
+        public List<PhoneDTO> GetPhones()
         {
-            List<Phone> phones = _phoneRepository.GetPhones();
+            List<PhoneDTO> phones = _phoneDataAccess.GetPhones();
 
             return phones;
+        }
+        public PhoneDTO GetPhoneByArtNr(int ArtNr)
+        {
+            return _phoneDataAccess.GetPhoneByArtNr(ArtNr);
         }
     }
 }

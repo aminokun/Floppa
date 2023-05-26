@@ -1,0 +1,55 @@
+﻿@model Leapy.Data.DataModels.PhoneDTO
+@{
+    var phone = Model;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DisplayPhoneGrid</title>
+    <style>
+    </style>
+</head>
+<body>
+
+
+        
+    <div>
+        <div style="float: left; margin-right: 20px;">
+            <img src="@phone.ImageUrl" alt="Product Image" style="width: 200px;">
+        </div>
+        <div>
+            <h2>@phone.Title</h2>
+            <p>Price: $@phone.Price</p>
+            <button id="favoriteButton" type="button">Add to Favorites</button>
+        </div>
+    </div>
+</body>
+
+
+@section scripts {
+    <script>
+        // JavaScript code for handling the favorite button click event
+        document.getElementById("favoriteButton").addEventListener("click", function () {
+            // Send an AJAX request to add the product as a favorite
+            var productId = '@phone.ArtNr'; // Replace with the actual product ID
+            var url = '/Favorite/AddPhoneToFavorites/' + productId;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Handle the success response
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        alert('Product added to favorites!');
+                    } else {
+                        alert('Failed to add product to favorites.');
+                    }
+                }
+            };
+            xhr.send();
+        });
+    </script>
+}
