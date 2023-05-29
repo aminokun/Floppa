@@ -60,5 +60,35 @@ namespace Leapy.Data.Repositories
 
             return phone;
         }
+
+        public List<PhoneDTO> GetFavoritePhones(int userId)
+        {
+            List<PhoneDTO> favoritePhones = new List<PhoneDTO>();
+
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (var command = new MySqlCommand("SELECT * FROM favorite_phones WHERE UserID = @userId", connection))
+                {
+                    command.Parameters.AddWithValue("@userId", userId);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int artNr = Convert.ToInt32(reader["ArtNr"]);
+
+                            PhoneDTO phone = GetPhoneByArtNr(artNr);
+                            if (phone != null)
+                            {
+                                favoritePhones.Add(phone);
+                            }
+                        }
+                    }
+                }
+            }
+            return favoritePhones;
+        }
     }
 }

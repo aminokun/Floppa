@@ -7,6 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<UserService>();
 builder.Services.AddScoped<UserDataAccess>();
+builder.Services.AddTransient<FavoriteService>();
+builder.Services.AddTransient<PhoneService>();
+builder.Services.AddTransient<BookService>();
+
+
+
 
 builder.Services.AddControllersWithViews();
 
@@ -39,7 +45,9 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "AddPhoneToFavorites",
-    pattern: "{controller=Favorite}/{action=AddPhoneToFavorites}/{ArtNr?}");
+    pattern: "Favorite/AddPhoneToFavorites/{ArtNr?}",
+    defaults: new { controller = "Favorite", action = "AddPhoneToFavorites" });
+
 
 app.MapControllerRoute(
     name: "default",

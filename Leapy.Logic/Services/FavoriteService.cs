@@ -23,6 +23,16 @@ namespace Leapy.Logic.Services
 
         public void AddPhoneToFavorites(UserDTO user, PhoneDTO phone)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (phone == null)
+            {
+                throw new ArgumentNullException(nameof(phone));
+            }
+
             user.favorite_phones.Add(phone);
 
             phone.IsFavorite = true;

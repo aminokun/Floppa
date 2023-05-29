@@ -2,9 +2,11 @@
 using Leapy.Logic.Services;
 using Leapy.Logic.Models;
 using Leapy.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Leapy.Controllers
 {
+    [Authorize]
     public class FavoriteController : Controller
     {
         private readonly FavoriteService _favoriteService;
@@ -20,59 +22,21 @@ namespace Leapy.Controllers
             _phoneService = phoneService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult ViewFavorites()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Login", "Account");
-            }
+            var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
+            var favoritePhones = _phoneService.GetFavoritePhones(currentUser.UserID);
 
-            var user = _userService.GetUserByEmailAsync(User.Identity.Name).Result;
-
-            List<Book> favoriteBooks;
-            if (user.favorite_books != null)
+            var model = new FavoriteViewModel
             {
-                favoriteBooks = user.favorite_books.Select(b => new Book
-                {
-                    ImageUrl = b.ImageUrl,
-                    Title = b.Title,
-                    Price = b.Price,
-                    UPC = b.UPC,
-                    IsFavorite = b.IsFavorite
-                }).ToList();
-            }
-            else
-            {
-                favoriteBooks = new List<Book>();
-            }
-
-            // Check if the user has any favorite phones
-            List<Phone> favoritePhones;
-            if (user.favorite_phones != null)
-            {
-                favoritePhones = user.favorite_phones.Select(p => new Phone
-                {
-                    ImageUrl = p.ImageUrl,
-                    Title = p.Title,
-                    Price = p.Price,
-                    ArtNr = p.ArtNr,
-                    IsFavorite = p.IsFavorite
-                }).ToList();
-            }
-            else
-            {
-                favoritePhones = new List<Phone>();
-            }
-
-            // Pass the favorite books and phones to the view
-            var viewModel = new FavoriteViewModel
-            {
-                FavoriteBooks = favoriteBooks,
                 FavoritePhones = favoritePhones
             };
 
-            return View(viewModel);
+            return View(model);
         }
+
+
 
 
         [HttpPost]
@@ -91,14 +55,16 @@ namespace Leapy.Controllers
         [HttpPost]
         public IActionResult AddPhoneToFavorites(int ArtNr)
         {
-            var currentUser = _userService.GetUserByEmailAsync(User.Identity.Name).Result;
 
-            var phone = _phoneService.GetPhoneByArtNr(ArtNr);
+                var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
+                var phone = _phoneService.GetPhoneByArtNr(ArtNr);
 
-            _favoriteService.AddPhoneToFavorites(currentUser, phone);
+                _favoriteService.AddPhoneToFavorites(currentUser, phone);
 
-            return Json(new { success = true });
+                return RedirectToAction("Details", "Phones", new { artNr = ArtNr });
         }
+
+
 
         [HttpPost]
         public IActionResult RemoveBookFromFavorites(string UPC)
