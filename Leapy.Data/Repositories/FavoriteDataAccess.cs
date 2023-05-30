@@ -19,6 +19,7 @@ namespace Leapy.Data.Repositories
 
                     connection.Open();
                     command.ExecuteNonQuery();
+                    connection.Close();
                 }
             }
         }
@@ -35,6 +36,7 @@ namespace Leapy.Data.Repositories
 
                     connection.Open();
                     command.ExecuteNonQuery();
+                    connection.Close();
                 }
             }
         }

@@ -87,8 +87,9 @@ namespace Leapy.Data.Repositories
                         }
                     }
                 }
+                connection.Close();
+                return favoritePhones;
             }
-            return favoritePhones;
         }
     }
 }

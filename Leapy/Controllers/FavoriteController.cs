@@ -28,13 +28,18 @@ namespace Leapy.Controllers
             var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
             var favoritePhones = _phoneService.GetFavoritePhones(currentUser.UserID);
 
-            var model = new FavoriteViewModel
+            var model = favoritePhones.Select(phone => new FavoriteViewModel
             {
-                FavoritePhones = favoritePhones
-            };
+                ArtNr = phone.ArtNr,
+                ImageUrl = phone.ImageUrl,
+                Title = phone.Title,
+                Price = phone.Price,
+                IsFavorite = phone.IsFavorite
+            }).ToList();
 
             return View(model);
         }
+
 
 
 
@@ -48,7 +53,7 @@ namespace Leapy.Controllers
 
                 _favoriteService.AddPhoneToFavorites(currentUser, phone);
 
-                return RedirectToAction("Details", "Phones", new { artNr = ArtNr });
+                return RedirectToAction("DisplayPhonesGrid", "Phones");
         }
 
 
@@ -61,7 +66,7 @@ namespace Leapy.Controllers
 
             _favoriteService.RemovePhoneFromFavorites(currentUser, phone);
 
-            return RedirectToAction("Details", "Phones", new { artNr = ArtNr });
+            return RedirectToAction("ViewFavorites", "Favorite");
         }
     }
 }

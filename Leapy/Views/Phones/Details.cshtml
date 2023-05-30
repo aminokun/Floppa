@@ -2,6 +2,22 @@
 @{
     var phone = Model;
 }
+<style>
+    .buttons {
+        display: flex;
+        flex-direction: row;
+    }
+    .buttons form {
+        margin-right: 10px;
+    }
+    .add {
+        background-color: white; /*rgba(255, 0, 0, 0.30);*/
+        border-color: lightskyblue;
+        color: blue;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+</style>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,10 +35,13 @@
         <div>
             <h2>@phone.Title</h2>
             <p>Price: $@phone.Price</p>
-            <form method="post" action="/Favorite/AddPhoneToFavorites">
-                <input type="hidden" name="ArtNr" value="@phone.ArtNr" />
-                <button type="submit">Add to Favorites</button>
-            </form>
+
+            <div class="buttons">
+                <form method="post" action="/Favorite/AddPhoneToFavorites">
+                    <input type="hidden" name="ArtNr" value="@phone.ArtNr" />
+                    <button class="add" type="submit">Add to Favorites</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>
