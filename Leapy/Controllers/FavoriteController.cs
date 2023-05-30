@@ -40,19 +40,6 @@ namespace Leapy.Controllers
 
 
         [HttpPost]
-        public IActionResult AddBookToFavorites(string UPC)
-        {
-            var currentUser = _userService.GetUserByEmailAsync(User.Identity.Name).Result;
-
-            var book = _bookService.GetBookByUPC(UPC);
-
-            _favoriteService.AddBookToFavorites(currentUser, book);
-
-            return Json(new { success = true });
-        }
-
-
-        [HttpPost]
         public IActionResult AddPhoneToFavorites(int ArtNr)
         {
 
@@ -67,27 +54,14 @@ namespace Leapy.Controllers
 
 
         [HttpPost]
-        public IActionResult RemoveBookFromFavorites(string UPC)
-        {
-            var currentUser = _userService.GetUserByEmailAsync(User.Identity.Name).Result;
-
-            var book = _bookService.GetBookByUPC(UPC);
-
-            _favoriteService.RemoveBookFromFavorites(currentUser, book);
-
-            return Json(new { success = true });
-        }
-
-        [HttpPost]
         public IActionResult RemovePhoneFromFavorites(int ArtNr)
         {
-            var currentUser = _userService.GetUserByEmailAsync(User.Identity.Name).Result;
-
+            var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
             var phone = _phoneService.GetPhoneByArtNr(ArtNr);
 
             _favoriteService.RemovePhoneFromFavorites(currentUser, phone);
 
-            return Json(new { success = true });
+            return RedirectToAction("Details", "Phones", new { artNr = ArtNr });
         }
     }
 }

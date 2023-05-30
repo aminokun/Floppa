@@ -36,7 +36,7 @@ namespace Leapy.Logic.Services
                 Title = phoneDTO.Title,
                 Price = phoneDTO.Price,
                 IsFavorite = phoneDTO.IsFavorite
-    }).ToList();
+                }).ToList();
 
             return favoritePhones;
         }
