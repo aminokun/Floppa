@@ -3,11 +3,12 @@ using Leapy.Data.DataModels;
 
 namespace Leapy.Data.Repositories
 {
-    public class BookRepository
+    public class BookDataAccess
     {
-        public List<Book> GetBooks()
+        string connectionString = "Server=192.168.178.27,3306;Database=Leapy ;Uid=Scraper;Pwd=123Scraper21!;";
+        
+        public List<BookDTO> GetBooks()
         {
-            string connectionString = "Server=192.168.178.27,3306;Database=Books;Uid=Scraper;Pwd=123Scraper21!;";
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
@@ -16,10 +17,10 @@ namespace Leapy.Data.Repositories
 
             MySqlDataReader reader = command.ExecuteReader();
 
-            var books = new List<Book>();
+            var books = new List<BookDTO>();
             while (reader.Read())
             {
-                Book book = new Book();
+                BookDTO book = new BookDTO();
                 book.ImageUrl = reader["ImageUrl"].ToString();
                 book.Title = reader["title"].ToString();
                 book.Price = Convert.ToDecimal(reader["price"]);
@@ -32,6 +33,33 @@ namespace Leapy.Data.Repositories
             connection.Close();
 
             return books;
+        }
+
+        public BookDTO GetBookByUPC(string upc)
+        {
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            string query = "SELECT * FROM books WHERE upc = @upc";
+            MySqlCommand command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@upc", upc);
+
+            MySqlDataReader reader = command.ExecuteReader();
+
+            BookDTO book = null;
+            if (reader.Read())
+            {
+                book = new BookDTO();
+                book.ImageUrl = reader["ImageUrl"].ToString();
+                book.Title = reader["title"].ToString();
+                book.Price = Convert.ToDecimal(reader["price"]);
+                book.UPC = reader["upc"].ToString();
+            }
+
+            reader.Close();
+            connection.Close();
+
+            return book;
         }
     }
 }

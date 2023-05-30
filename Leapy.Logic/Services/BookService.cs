@@ -5,18 +5,22 @@ namespace Leapy.Logic.Services
 {
     public class BookService
     {
-        private readonly BookRepository _bookRepository;
+        private readonly BookDataAccess _bookDataAccess;
 
         public BookService()
         {
-            _bookRepository = new BookRepository();
+            _bookDataAccess = new BookDataAccess();
         }
 
-        public List<Book> GetBooks()
+        public List<BookDTO> GetBooks()
         {
-            List<Book> books = _bookRepository.GetBooks();
+            List<BookDTO> books = _bookDataAccess.GetBooks();
 
             return books;
+        }
+        public BookDTO GetBookByUPC(string upc)
+        {
+            return _bookDataAccess.GetBookByUPC(upc);
         }
     }
 }

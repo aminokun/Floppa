@@ -1,4 +1,4 @@
-﻿@model List<Leapy.Data.DataModels.Book>
+﻿@model List<Leapy.Data.DataModels.BookDTO>
 
 <!DOCTYPE html>
 <html>
@@ -27,6 +27,10 @@
     </style>
 </head>
 <body>
+    <div class="text-center">
+        <h1 class="display-4">Books</h1>
+        <br />
+    </div>
     <div class="book-grid">
 
         @foreach (var book in Model)
