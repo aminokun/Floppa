@@ -1,5 +1,6 @@
 ﻿using Leapy.Interfaces;
 using Leapy.DTO.DataModels;
+using Leapy.Factory;
 
 namespace Leapy.Logic.Services
 {
@@ -7,11 +8,11 @@ namespace Leapy.Logic.Services
     {
         private readonly IFavorite _favoriteDataAccess;
 
-        public FavoriteService(IFavorite favoriteDataAccess)
+        public FavoriteService()
         {
-            _favoriteDataAccess = favoriteDataAccess;
+            FavoriteFactory favoriteFactory = new FavoriteFactory();
+            _favoriteDataAccess = favoriteFactory.UseFavoriteDAL("Favorite");
         }
-
 
         public void AddFavoritePhone(UserDTO user, PhoneDTO phone)
         {

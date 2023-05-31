@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Dependency Injection
 
-//AddScoped returns the same instance of the types for a single client request.
+//AddScoped returns zelfde instance van de types voor single client request.
 builder.Services.AddScoped<IFavorite, FavoriteDataAccess>();
 builder.Services.AddScoped<IUser, UserDataAccess>();
 builder.Services.AddScoped<ISmartphone, PhoneDataAccess>();
@@ -18,7 +18,7 @@ builder.Services.AddScoped<ISmartphoneFactory, PhoneFactory>();
 builder.Services.AddScoped<IBookFactory, BookFactory>();
 
 
-//AddTransient returns a new instance of classes every time they are requested. 
+//AddTransient returns nieuwe instance van classes elke request. 
 builder.Services.AddTransient<FavoriteService>();
 builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<PhoneService>();

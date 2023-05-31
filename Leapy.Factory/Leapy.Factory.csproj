@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Leapy.Data\Leapy.Data.csproj" />
     <ProjectReference Include="..\Leapy.DTO\Leapy.DTO.csproj" />
     <ProjectReference Include="..\Leapy.Interfaces\Leapy.Interfaces.csproj" />
     <ProjectReference Include="..\Leapy.Models\Leapy.Models.csproj" />
