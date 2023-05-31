@@ -1,4 +1,4 @@
-﻿@model List<Leapy.Data.DataModels.PhoneDTO>
+﻿@model List<Leapy.Models.Phone>
 
 <!DOCTYPE html>
 <html>
@@ -79,7 +79,7 @@
                 </a>
 
                 <div class="buttons">
-                    <form method="post" action="/Favorite/AddPhoneToFavorites">
+                    <form method="post" action="/Favorite/AddFavoritePhone">
                         <input type="hidden" name="ArtNr" value="@phone.ArtNr" />
                         <button class="add" type="submit">Add to Favorites</button>
                     </form>

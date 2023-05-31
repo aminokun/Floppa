@@ -1,4 +1,4 @@
-﻿@model Leapy.Data.DataModels.PhoneDTO
+﻿@model Leapy.Models.Phone
 @{
     var phone = Model;
 }
@@ -37,7 +37,7 @@
             <p>Price: $@phone.Price</p>
 
             <div class="buttons">
-                <form method="post" action="/Favorite/AddPhoneToFavorites">
+                <form method="post" action="/Favorite/AddFavoritePhone">
                     <input type="hidden" name="ArtNr" value="@phone.ArtNr" />
                     <button class="add" type="submit">Add to Favorites</button>
                 </form>

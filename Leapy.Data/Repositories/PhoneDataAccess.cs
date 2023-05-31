@@ -1,9 +1,10 @@
 ﻿using MySql.Data.MySqlClient;
-using Leapy.Data.DataModels;
+using Leapy.DTO.DataModels;
+using Leapy.Interfaces;
 
 namespace Leapy.Data.Repositories
 {
-    public class PhoneDataAccess
+    public class PhoneDataAccess : ISmartphone
     {
         string connectionString = "Server=192.168.178.27,3306;Database=Leapy;Uid=Scraper;Pwd=123Scraper21!;";
             

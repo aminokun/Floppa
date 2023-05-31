@@ -1,19 +1,19 @@
-﻿using Leapy.Data.Repositories;
-using Leapy.Data.DataModels;
+﻿using Leapy.Interfaces;
+using Leapy.DTO.DataModels;
 
 namespace Leapy.Logic.Services
 {
     public class FavoriteService
     {
-        private readonly FavoriteDataAccess _favoriteDataAccess;
+        private readonly IFavorite _favoriteDataAccess;
 
-        public FavoriteService()
+        public FavoriteService(IFavorite favoriteDataAccess)
         {
-             _favoriteDataAccess = new FavoriteDataAccess();
+            _favoriteDataAccess = favoriteDataAccess;
         }
 
 
-        public void AddPhoneToFavorites(UserDTO user, PhoneDTO phone)
+        public void AddFavoritePhone(UserDTO user, PhoneDTO phone)
         {
             if (user == null)
             {
@@ -29,11 +29,11 @@ namespace Leapy.Logic.Services
 
             phone.IsFavorite = true;
 
-            _favoriteDataAccess.AddFavoritePhone(user.UserID, phone.ArtNr);
+            _favoriteDataAccess.AddFavoritePhone(user, phone);
         }
 
 
-        public void RemovePhoneFromFavorites(UserDTO user, PhoneDTO phone)
+        public void RemoveFavoritePhone(UserDTO user, PhoneDTO phone)
         {
             if (user == null)
             {
@@ -49,7 +49,7 @@ namespace Leapy.Logic.Services
 
             phone.IsFavorite = false;
 
-            _favoriteDataAccess.RemoveFavoritePhone(user.UserID, phone.ArtNr);
+            _favoriteDataAccess.RemoveFavoritePhone(user, phone);
         }
     }
 }

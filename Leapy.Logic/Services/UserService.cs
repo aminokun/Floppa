@@ -1,13 +1,13 @@
-﻿using Leapy.Data.Repositories;
-using Leapy.Data.DataModels;
+﻿using Leapy.Interfaces;
+using Leapy.DTO.DataModels;
 
 namespace Leapy.Logic.Services
 {
     public class UserService
     {
-        private readonly UserDataAccess _userDataAccess;
+        private readonly IUser _userDataAccess;
 
-        public UserService(UserDataAccess userDataAccess)
+        public UserService(IUser userDataAccess)
         {
             _userDataAccess = userDataAccess;
         }
@@ -35,7 +35,6 @@ namespace Leapy.Logic.Services
 
             return BCrypt.Net.BCrypt.Verify(password, user.Password);
         }
-
 
         public async Task Register(string username, string email, string password)
         {

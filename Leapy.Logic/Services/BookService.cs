@@ -1,15 +1,15 @@
-﻿using Leapy.Data.Repositories;
-using Leapy.Data.DataModels;
+﻿using Leapy.Interfaces;
+using Leapy.DTO.DataModels;
 
 namespace Leapy.Logic.Services
 {
     public class BookService
     {
-        private readonly BookDataAccess _bookDataAccess;
+        private readonly IBook _bookDataAccess;
 
-        public BookService()
+        public BookService(IBook bookDataAccess)
         {
-            _bookDataAccess = new BookDataAccess();
+            _bookDataAccess = bookDataAccess;
         }
 
         public List<BookDTO> GetBooks()

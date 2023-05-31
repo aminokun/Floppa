@@ -8,9 +8,9 @@ namespace Leapy.Controllers
     {
         private readonly PhoneService _phoneService;
 
-        public PhonesController()
+        public PhonesController(PhoneService phoneService)
         {
-            _phoneService = new PhoneService();
+            _phoneService = phoneService;
         }
         [Authorize]
         public IActionResult DisplayPhonesGrid()

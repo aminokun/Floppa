@@ -1,4 +1,4 @@
-﻿namespace Leapy.Data.DataModels
+﻿namespace Leapy.DTO.DataModels
 {
     public class UserDTO
     {

@@ -60,6 +60,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Leapy.Data\Leapy.Data.csproj" />
     <ProjectReference Include="..\Leapy.Logic\Leapy.Logic.csproj" />
   </ItemGroup>
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Leapy.Logic.Services;
-using Leapy.Logic.Models;
-using Leapy.Models;
+using Leapy.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Leapy.Controllers
@@ -45,13 +44,13 @@ namespace Leapy.Controllers
 
 
         [HttpPost]
-        public IActionResult AddPhoneToFavorites(int ArtNr)
+        public IActionResult AddFavoritePhone(int ArtNr)
         {
 
                 var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
                 var phone = _phoneService.GetPhoneByArtNr(ArtNr);
 
-                _favoriteService.AddPhoneToFavorites(currentUser, phone);
+                _favoriteService.AddFavoritePhone(currentUser, phone);
 
                 return RedirectToAction("DisplayPhonesGrid", "Phones");
         }
@@ -59,12 +58,12 @@ namespace Leapy.Controllers
 
 
         [HttpPost]
-        public IActionResult RemovePhoneFromFavorites(int ArtNr)
+        public IActionResult RemoveFavoritePhone(int ArtNr)
         {
             var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
             var phone = _phoneService.GetPhoneByArtNr(ArtNr);
 
-            _favoriteService.RemovePhoneFromFavorites(currentUser, phone);
+            _favoriteService.RemoveFavoritePhone(currentUser, phone);
 
             return RedirectToAction("ViewFavorites", "Favorite");
         }

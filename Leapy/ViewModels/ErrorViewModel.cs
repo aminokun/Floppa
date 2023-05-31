@@ -1,4 +1,4 @@
-namespace Leapy.Models
+namespace Leapy.ViewModels
 {
     public class ErrorViewModel
     {

@@ -8,9 +8,9 @@ namespace Leapy.Controllers
     {
         private readonly BookService _bookService;
 
-        public BooksController()
+        public BooksController(BookService bookService)
         {
-            _bookService = new BookService();
+            _bookService = bookService;
         }
         [Authorize]
         public IActionResult DisplayBooksGrid()

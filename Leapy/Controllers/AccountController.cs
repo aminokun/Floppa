@@ -1,5 +1,5 @@
 ﻿using Leapy.Logic.Services;
-using Leapy.Models;
+using Leapy.ViewModels;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;

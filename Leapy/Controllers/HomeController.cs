@@ -1,4 +1,4 @@
-﻿using Leapy.Models;
+﻿using Leapy.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

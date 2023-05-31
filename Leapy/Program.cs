@@ -1,13 +1,23 @@
-using Leapy.Data.Repositories;
+using Leapy.Interfaces;
 using Leapy.Logic.Services;
+using Leapy.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Leapy.Factory;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddTransient<UserService>();
-builder.Services.AddScoped<UserDataAccess>();
+//Dependency Injection
+
+//AddScoped returns the same instance of the types for a single client request.
+builder.Services.AddScoped<IFavorite, FavoriteDataAccess>();
+builder.Services.AddScoped<IUser, UserDataAccess>();
+builder.Services.AddScoped<ISmartphone, PhoneDataAccess>();
+builder.Services.AddScoped<ISmartphoneFactory, PhoneFactory>();
+builder.Services.AddScoped<IBook, BookDataAccess>();
+
+//AddTransient returns a new instance of classes every time they are requested. 
 builder.Services.AddTransient<FavoriteService>();
+builder.Services.AddTransient<UserService>();
 builder.Services.AddTransient<PhoneService>();
 builder.Services.AddTransient<BookService>();
 
@@ -44,9 +54,9 @@ app.MapControllerRoute(
     pattern: "{controller=Phone}/{action=Details}/{ArtNr?}");
 
 app.MapControllerRoute(
-    name: "AddPhoneToFavorites",
-    pattern: "Favorite/AddPhoneToFavorites/{ArtNr?}",
-    defaults: new { controller = "Favorite", action = "AddPhoneToFavorites" });
+    name: "AddFavoritePhone",
+    pattern: "Favorite/AddFavoritePhone/{ArtNr?}",
+    defaults: new { controller = "Favorite", action = "AddFavoritePhone" });
 
 
 app.MapControllerRoute(

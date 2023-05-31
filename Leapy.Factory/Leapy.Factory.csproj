@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,13 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BCrypt.Net" Version="0.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Leapy.DTO\Leapy.DTO.csproj" />
-    <ProjectReference Include="..\Leapy.Factory\Leapy.Factory.csproj" />
     <ProjectReference Include="..\Leapy.Interfaces\Leapy.Interfaces.csproj" />
     <ProjectReference Include="..\Leapy.Models\Leapy.Models.csproj" />
   </ItemGroup>

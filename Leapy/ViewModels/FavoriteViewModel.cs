@@ -1,7 +1,7 @@
-using Leapy.Logic.Models;
+using Leapy.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace Leapy.Models
+namespace Leapy.ViewModels
 {
     public class FavoriteViewModel : Phone
     {

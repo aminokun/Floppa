@@ -1,11 +1,12 @@
 ﻿using MySql.Data.MySqlClient;
-using Leapy.Data.DataModels;
+using Leapy.DTO.DataModels;
 using System.Data;
 using System.Threading.Tasks;
+using Leapy.Interfaces;
 
 namespace Leapy.Data.Repositories
 {
-    public class UserDataAccess
+    public class UserDataAccess : IUser
     {
         string connectionString = "Server=192.168.178.27,3306;Database=Leapy;Uid=Scraper;Pwd=123Scraper21!;";
 
