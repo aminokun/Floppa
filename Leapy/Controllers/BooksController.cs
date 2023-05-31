@@ -24,5 +24,12 @@ namespace Leapy.Controllers
 
             return View(books);
         }
+        public IActionResult Details(string upc)
+        {
+            var book = _bookService.GetBookByUPC(upc);
+
+
+            return View(book);
+        }
     }
 }

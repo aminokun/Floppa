@@ -47,20 +47,50 @@ namespace Leapy.Data.Repositories
 
             MySqlDataReader reader = command.ExecuteReader();
 
-            BookDTO book = null;
+            var book = new BookDTO();
             if (reader.Read())
             {
                 book = new BookDTO();
                 book.ImageUrl = reader["ImageUrl"].ToString();
                 book.Title = reader["title"].ToString();
                 book.Price = Convert.ToDecimal(reader["price"]);
-                book.UPC = reader["upc"].ToString();
+                book.UPC = reader["UPC"].ToString();
             }
 
             reader.Close();
             connection.Close();
 
             return book;
+        }
+        public List<BookDTO> GetFavoriteBooks(int userId)
+        {
+            List<BookDTO> favoriteBooks = new List<BookDTO>();
+
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (var command = new MySqlCommand("SELECT * FROM favorite_books WHERE UserID = @userId", connection))
+                {
+                    command.Parameters.AddWithValue("@userId", userId);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            string upc = reader["UPC"].ToString();
+
+                            BookDTO book = GetBookByUPC(upc);
+                            if (book != null)
+                            {
+                                favoriteBooks.Add(book);
+                            }
+                        }
+                    }
+                }
+                connection.Close();
+                return favoriteBooks;
+            }
         }
     }
 }

@@ -1,0 +1,48 @@
+﻿@model Leapy.Models.Book
+@{
+    var book = Model;
+}
+<style>
+    .buttons {
+        display: flex;
+        flex-direction: row;
+    }
+    .buttons form {
+        margin-right: 10px;
+    }
+    .add {
+        background-color: white; /*rgba(255, 0, 0, 0.30);*/
+        border-color: lightskyblue;
+        color: blue;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+</style>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Book Details</title>
+    <style>
+    </style>
+</head>
+<body>
+
+    <div>
+        <div style="float: left; margin-right: 20px;">
+            <img src="@book.ImageUrl" alt="Product Image" style="width: 200px;">
+        </div>
+        <div>
+            <h2>@book.Title</h2>
+            <p>Price: $@book.Price</p>
+
+            <div class="buttons">
+                <form method="post" action="/Favorite/AddFavoriteBook">
+                    <input type="hidden" name="UPC" value="@book.UPC" />
+                    <button class="add" type="submit">Add to Favorites</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

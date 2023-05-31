@@ -39,5 +39,40 @@ namespace Leapy.Data.Repositories
                 }
             }
         }
+
+
+
+
+        public void AddFavoriteBook(UserDTO user, BookDTO book)
+        {
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                using (var command = new MySqlCommand("INSERT INTO favorite_books (UserID, UPC) VALUES (@userId, @artNr)", connection))
+                {
+                    command.Parameters.AddWithValue("@userId", user.UserID);
+                    command.Parameters.AddWithValue("@UPC", book.UPC);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
+
+        public void RemoveFavoriteBook(UserDTO user, BookDTO book)
+        {
+            using (var connection = new MySqlConnection(connectionString))
+            {
+                using (var command = new MySqlCommand("DELETE FROM favorite_books (UserID, UPC) VALUES (@userId, @artNr)", connection))
+                {
+                    command.Parameters.AddWithValue("@userId", user.UserID);
+                    command.Parameters.AddWithValue("@UPC", book.UPC);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    connection.Close();
+                }
+            }
+        }
     }
 }

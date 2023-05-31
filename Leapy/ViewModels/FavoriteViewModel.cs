@@ -1,10 +1,9 @@
-using Leapy.Models;
-using System.ComponentModel.DataAnnotations;
-
 namespace Leapy.ViewModels
 {
-    public class FavoriteViewModel : Phone
+    public class FavoritesViewModel
     {
-        public List<Phone>? FavoritePhones { get; set; }
+        public List<FavoriteBookViewModel> FavoriteBooks { get; set; }
+        public List<FavoritePhoneViewModel> FavoritePhones { get; set; }
     }
+
 }

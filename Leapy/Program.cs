@@ -12,8 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IFavorite, FavoriteDataAccess>();
 builder.Services.AddScoped<IUser, UserDataAccess>();
 builder.Services.AddScoped<ISmartphone, PhoneDataAccess>();
-builder.Services.AddScoped<ISmartphoneFactory, PhoneFactory>();
 builder.Services.AddScoped<IBook, BookDataAccess>();
+
+builder.Services.AddScoped<ISmartphoneFactory, PhoneFactory>();
+builder.Services.AddScoped<IBookFactory, BookFactory>();
+
 
 //AddTransient returns a new instance of classes every time they are requested. 
 builder.Services.AddTransient<FavoriteService>();
@@ -46,7 +49,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication(); // Add this line to enable authentication
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -58,6 +61,14 @@ app.MapControllerRoute(
     pattern: "Favorite/AddFavoritePhone/{ArtNr?}",
     defaults: new { controller = "Favorite", action = "AddFavoritePhone" });
 
+app.MapControllerRoute(
+    name: "Details",
+    pattern: "{controller=Book}/{action=Details}/{UPC?}");
+
+app.MapControllerRoute(
+    name: "AddFavoriteBook",
+    pattern: "Favorite/AddFavoriteBook/{UPC?}",
+    defaults: new { controller = "Favorite", action = "AddFavoriteBook" });
 
 app.MapControllerRoute(
     name: "default",

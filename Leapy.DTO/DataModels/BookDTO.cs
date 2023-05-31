@@ -1,11 +1,7 @@
 ﻿namespace Leapy.DTO.DataModels
 {
-    public class BookDTO
+    public class BookDTO : ProductDTO
     {
-        public string? ImageUrl { get; set; }
-        public string? Title { get; set; }
-        public decimal Price { get; set; }
         public string? UPC { get; set; }
-        public bool IsFavorite { get; set; }
     }
 }

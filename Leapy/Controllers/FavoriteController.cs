@@ -2,6 +2,7 @@
 using Leapy.Logic.Services;
 using Leapy.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Leapy.Models;
 
 namespace Leapy.Controllers
 {
@@ -25,19 +26,34 @@ namespace Leapy.Controllers
         public IActionResult ViewFavorites()
         {
             var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
+
+            var favoriteBooks = _bookService.GetFavoriteBooks(currentUser.UserID);
             var favoritePhones = _phoneService.GetFavoritePhones(currentUser.UserID);
 
-            var model = favoritePhones.Select(phone => new FavoriteViewModel
+            var model = new FavoritesViewModel
             {
-                ArtNr = phone.ArtNr,
-                ImageUrl = phone.ImageUrl,
-                Title = phone.Title,
-                Price = phone.Price,
-                IsFavorite = phone.IsFavorite
-            }).ToList();
+                FavoriteBooks = favoriteBooks.Select(book => new FavoriteBookViewModel
+                {
+                    UPC = book.UPC,
+                    ImageUrl = book.ImageUrl,
+                    Title = book.Title,
+                    Price = book.Price,
+                    IsFavorite = book.IsFavorite
+                }).ToList(),
+
+                FavoritePhones = favoritePhones.Select(phone => new FavoritePhoneViewModel
+                {
+                    ArtNr = phone.ArtNr,
+                    ImageUrl = phone.ImageUrl,
+                    Title = phone.Title,
+                    Price = phone.Price,
+                    IsFavorite = phone.IsFavorite
+                }).ToList()
+            };
 
             return View(model);
         }
+
 
 
 
@@ -54,9 +70,6 @@ namespace Leapy.Controllers
 
                 return RedirectToAction("DisplayPhonesGrid", "Phones");
         }
-
-
-
         [HttpPost]
         public IActionResult RemoveFavoritePhone(int ArtNr)
         {
@@ -64,6 +77,30 @@ namespace Leapy.Controllers
             var phone = _phoneService.GetPhoneByArtNr(ArtNr);
 
             _favoriteService.RemoveFavoritePhone(currentUser, phone);
+
+            return RedirectToAction("ViewFavorites", "Favorite");
+        }
+
+
+
+
+        [HttpPost]
+        public IActionResult AddFavoriteBook(string UPC)
+        {
+            var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
+            var book = _bookService.GetBookByUPC(UPC);
+
+            _favoriteService.AddFavoriteBook(currentUser, book);
+
+            return RedirectToAction("DisplayBooksGrid", "Books");
+        }
+        [HttpPost]
+        public IActionResult RemoveFavoriteBook(string UPC)
+        {
+            var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
+            var book = _bookService.GetBookByUPC(UPC);
+
+            _favoriteService.RemoveFavoriteBook(currentUser, book);
 
             return RedirectToAction("ViewFavorites", "Favorite");
         }

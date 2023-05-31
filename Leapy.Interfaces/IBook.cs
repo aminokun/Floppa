@@ -6,5 +6,7 @@ namespace Leapy.Interfaces
     {
         List<BookDTO> GetBooks();
         BookDTO GetBookByUPC(string upc);
+        List<BookDTO> GetFavoriteBooks(int userId);
+
     }
 }

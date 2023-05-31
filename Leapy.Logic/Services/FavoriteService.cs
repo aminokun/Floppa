@@ -51,5 +51,47 @@ namespace Leapy.Logic.Services
 
             _favoriteDataAccess.RemoveFavoritePhone(user, phone);
         }
+
+
+
+
+
+
+        public void AddFavoriteBook(UserDTO user, BookDTO book)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (book == null)
+            {
+                throw new ArgumentNullException(nameof(book));
+            }
+
+            user.favorite_books.Add(book);
+
+            book.IsFavorite = true;
+
+            _favoriteDataAccess.AddFavoriteBook(user, book);
+        }
+        public void RemoveFavoriteBook(UserDTO user, BookDTO book)
+        {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            if (book == null)
+            {
+                throw new ArgumentNullException(nameof(book));
+            }
+
+            user.favorite_books.Remove(book);
+
+            book.IsFavorite = false;
+
+            _favoriteDataAccess.RemoveFavoriteBook(user, book);
+        }
     }
 }
