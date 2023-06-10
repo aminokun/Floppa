@@ -53,17 +53,17 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "Details",
-    pattern: "{controller=Phone}/{action=Details}/{ArtNr?}");
+    name: "PhoneDetails",
+    pattern: "{controller=Phone}/{action=PhoneDetails}/{ArtNr?}");
+
+app.MapControllerRoute(
+    name: "BookDetails",
+    pattern: "{controller=Books}/{action=BookDetails}/{UPC?}");
 
 app.MapControllerRoute(
     name: "AddFavoritePhone",
     pattern: "Favorite/AddFavoritePhone/{ArtNr?}",
     defaults: new { controller = "Favorite", action = "AddFavoritePhone" });
-
-app.MapControllerRoute(
-    name: "Details",
-    pattern: "{controller=Book}/{action=Details}/{UPC?}");
 
 app.MapControllerRoute(
     name: "AddFavoriteBook",

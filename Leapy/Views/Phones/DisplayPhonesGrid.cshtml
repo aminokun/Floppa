@@ -72,7 +72,7 @@
         @foreach (var phone in Model)
         {
             <div class="phone-item">
-                <a class="clickable" href="/Phones/Details/@phone.ArtNr">
+                <a class="clickable" href="/Phones/PhoneDetails/@phone.ArtNr">
                     <img class="phone-image" src="@phone.ImageUrl" />
                     <h2 class="title">@phone.Title</h2>
                     <p class="price">$@phone.Price</p>

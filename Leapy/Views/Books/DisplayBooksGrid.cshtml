@@ -70,7 +70,7 @@
         @foreach (var book in Model)
         {
             <div class="book-item">
-                <a class="clickable" href="/Books/Details/@book.UPC">
+                <a class="clickable" href="/Books/BookDetails/@book.UPC">
                     <img class="book-image" src="@book.ImageUrl" />
                     <h2 class="title">@book.Title</h2>
                     <p class="price">$@book.Price</p>

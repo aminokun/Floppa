@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Leapy.Controllers
 {
-    public class BookController : Controller
+    public class BooksController : Controller
     {
         private readonly BookService _bookService;
 
-        public BookController(BookService bookService)
+        public BooksController(BookService bookService)
         {
             _bookService = bookService;
         }
@@ -24,7 +24,7 @@ namespace Leapy.Controllers
 
             return View(books);
         }
-        public IActionResult Details(string UPC)
+        public IActionResult BookDetails(string UPC)
         {
             var book = _bookService.GetBookByUPC(UPC);
 

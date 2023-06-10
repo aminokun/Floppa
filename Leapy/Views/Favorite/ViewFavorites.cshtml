@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>DisplayPhoneGrid</title>
+    <title>Favorites</title>
     <style>
         .phone-grid {
             display: grid;
@@ -74,7 +74,7 @@
 </head>
 <body>
     <div class="text-center">
-        <h1 class="display-4">Favorite</h1>
+        <h1 class="display-4">Favorite Phones</h1>
         <br/>
     </div>
     <div class="phone-grid">
@@ -105,7 +105,13 @@
                 <p class="no-items-message">No items found. Visit <a href="/Phones/DisplayPhonesGrid">Phones</a> to add items to the list.</p>
             </div>
         }
+        <br />
 
+        <div class="text-center">
+            <h1 class="display-4">Favorite Books</h1>
+            <br />
+        </div>
+        <div class="phone-grid">
         @if (Model.FavoriteBooks.Count > 0)
         {
             @foreach (var book in Model.FavoriteBooks)
