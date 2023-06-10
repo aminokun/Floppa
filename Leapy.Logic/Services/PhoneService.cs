@@ -7,19 +7,17 @@ namespace Leapy.Logic.Services
     public class PhoneService
     {
         private readonly ISmartphone _phoneDataAccess;
-        private readonly ISmartphoneFactory _phoneFactory;
 
-        public PhoneService(ISmartphone phoneDataAccess, ISmartphoneFactory phoneFactory)
+        public PhoneService(ISmartphone phoneDataAccess)
         {
             _phoneDataAccess = phoneDataAccess;
-            _phoneFactory = phoneFactory;
         }
 
         public List<Phone> GetPhones()
         {
             List<PhoneDTO> phoneDTOs = _phoneDataAccess.GetPhones();
 
-            var phones = phoneDTOs.Select(phoneDTO => _phoneFactory.CreatePhone(phoneDTO)).ToList();
+            var phones = phoneDTOs.Select(phoneDTO => CreatePhone(phoneDTO)).ToList();
 
             return phones;
         }
@@ -28,16 +26,29 @@ namespace Leapy.Logic.Services
         {
             PhoneDTO phoneDTO = _phoneDataAccess.GetPhoneByArtNr(ArtNr);
 
-            return _phoneFactory.CreatePhone(phoneDTO);
+            return CreatePhone(phoneDTO);
         }
 
         public List<Phone> GetFavoritePhones(int userId)
         {
             var favoritePhonesDTO = _phoneDataAccess.GetFavoritePhones(userId);
 
-            var favoritePhones = favoritePhonesDTO.Select(phoneDTO => _phoneFactory.CreatePhone(phoneDTO)).ToList();
+            var favoritePhones = favoritePhonesDTO.Select(phoneDTO => CreatePhone(phoneDTO)).ToList();
 
             return favoritePhones;
+        }
+
+
+        public Phone CreatePhone(PhoneDTO phoneDTO)
+        {
+            return new Phone
+            {
+                ArtNr = phoneDTO.ArtNr,
+                ImageUrl = phoneDTO.ImageUrl,
+                Title = phoneDTO.Title,
+                Price = phoneDTO.Price,
+                IsFavorite = phoneDTO.IsFavorite
+            };
         }
     }
 }

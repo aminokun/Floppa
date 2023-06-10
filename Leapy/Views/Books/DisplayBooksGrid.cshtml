@@ -15,14 +15,49 @@
         .book-item {
             border: 1px solid #ccc;
             padding: 10px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s;
         }
+
+        .clickable {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .book-item:hover {
+            transform: scale(1.05);
+        }
+
+            .book-item:hover .title {
+                color: inherit;
+                color: black;
+            }
 
         .title {
             font-size: 15px;
+            color: black;
         }
 
         .price {
             color: green;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: row;
+        }
+
+            .buttons form {
+                margin-right: 10px;
+            }
+
+        .add {
+            background-color: white; /*rgba(255, 0, 0, 0.30);*/
+            border-color: lightskyblue;
+            color: blue;
+            border-radius: 10px;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -36,14 +71,14 @@
         {
             <div class="book-item">
                 <a class="clickable" href="/Books/Details/@book.UPC">
-                    <img class="phone-image" src="@book.ImageUrl" />
+                    <img class="book-image" src="@book.ImageUrl" />
                     <h2 class="title">@book.Title</h2>
                     <p class="price">$@book.Price</p>
                 </a>
 
                 <div class="buttons">
                     <form method="post" action="/Favorite/AddFavoriteBook">
-                        <input type="hidden" name="ArtNr" value="@book.UPC" />
+                        <input type="hidden" name="UPC" value="@book.UPC" />
                         <button class="add" type="submit">Add to Favorites</button>
                     </form>
                 </div>

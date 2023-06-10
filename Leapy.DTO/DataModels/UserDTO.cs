@@ -5,6 +5,7 @@
         public UserDTO()
         {
             favorite_phones = new List<PhoneDTO>();
+            favorite_books = new List<BookDTO>();
         }
 
         public int UserID { get; set; }

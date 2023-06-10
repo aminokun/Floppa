@@ -25,7 +25,7 @@ namespace Leapy.Data.Repositories
                 book.ImageUrl = reader["ImageUrl"].ToString();
                 book.Title = reader["title"].ToString();
                 book.Price = Convert.ToDecimal(reader["price"]);
-                book.UPC = reader["upc"].ToString();
+                book.UPC = reader["UPC"].ToString();
 
                 books.Add(book);
             }
@@ -36,14 +36,14 @@ namespace Leapy.Data.Repositories
             return books;
         }
 
-        public BookDTO GetBookByUPC(string upc)
+        public BookDTO GetBookByUPC(string UPC)
         {
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
 
-            string query = "SELECT * FROM books WHERE upc = @upc";
+            string query = "SELECT * FROM books WHERE UPC = @UPC";
             MySqlCommand command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@upc", upc);
+            command.Parameters.AddWithValue("@UPC", UPC);
 
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -78,9 +78,9 @@ namespace Leapy.Data.Repositories
                     {
                         while (reader.Read())
                         {
-                            string upc = reader["UPC"].ToString();
+                            string UPC = reader["UPC"].ToString();
 
-                            BookDTO book = GetBookByUPC(upc);
+                            BookDTO book = GetBookByUPC(UPC);
                             if (book != null)
                             {
                                 favoriteBooks.Add(book);

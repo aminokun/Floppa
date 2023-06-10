@@ -8,20 +8,18 @@ namespace Leapy.Logic.Services
     public class BookService
     {
         private readonly IBook _bookDataAccess;
-        private readonly IBookFactory _bookFactory;
 
 
-        public BookService(IBook bookDataAccess, IBookFactory bookFactory)
+        public BookService(IBook bookDataAccess)
         {
             _bookDataAccess = bookDataAccess;
-            _bookFactory = bookFactory;
         }
 
         public List<Book> GetBooks()
         {
             List<BookDTO> booksDTO = _bookDataAccess.GetBooks();
 
-            var books = booksDTO.Select(bookDTO => _bookFactory.CreateBook(bookDTO)).ToList();
+            var books = booksDTO.Select(bookDTO => CreateBook(bookDTO)).ToList();
 
             return books;
         }
@@ -29,15 +27,28 @@ namespace Leapy.Logic.Services
         {
             BookDTO bookDTO = _bookDataAccess.GetBookByUPC(upc);
 
-            return _bookFactory.CreateBook(bookDTO);
+            return CreateBook(bookDTO);
         }
         public List<Book> GetFavoriteBooks(int userId)
         {
             var favoriteBooksDTO = _bookDataAccess.GetFavoriteBooks(userId);
 
-            var favoriteBooks = favoriteBooksDTO.Select(bookDTO => _bookFactory.CreateBook(bookDTO)).ToList();
+            var favoriteBooks = favoriteBooksDTO.Select(bookDTO => CreateBook(bookDTO)).ToList();
 
             return favoriteBooks;
+        }
+
+
+        public Book CreateBook(BookDTO bookDTO)
+        {
+            return new Book
+            {
+                UPC = bookDTO.UPC,
+                ImageUrl = bookDTO.ImageUrl,
+                Title = bookDTO.Title,
+                Price = bookDTO.Price,
+                IsFavorite = bookDTO.IsFavorite
+            };
         }
     }
 }

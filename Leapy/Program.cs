@@ -63,7 +63,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "Details",
-    pattern: "{controller=Book}/{action=Details}/{UPC?}");
+    pattern: "{controller=Books}/{action=Details}/{UPC?}");
 
 app.MapControllerRoute(
     name: "AddFavoriteBook",

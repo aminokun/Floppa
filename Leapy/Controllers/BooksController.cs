@@ -24,9 +24,9 @@ namespace Leapy.Controllers
 
             return View(books);
         }
-        public IActionResult Details(string upc)
+        public IActionResult Details(string UPC)
         {
-            var book = _bookService.GetBookByUPC(upc);
+            var book = _bookService.GetBookByUPC(UPC);
 
 
             return View(book);

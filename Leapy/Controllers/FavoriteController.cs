@@ -62,13 +62,12 @@ namespace Leapy.Controllers
         [HttpPost]
         public IActionResult AddFavoritePhone(int ArtNr)
         {
+            var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
+            var phone = _phoneService.GetPhoneByArtNr(ArtNr);
 
-                var currentUser = _userService.GetUserByUsernameAsync(User.Identity.Name).Result;
-                var phone = _phoneService.GetPhoneByArtNr(ArtNr);
+            _favoriteService.AddFavoritePhone(currentUser, phone);
 
-                _favoriteService.AddFavoritePhone(currentUser, phone);
-
-                return RedirectToAction("DisplayPhonesGrid", "Phones");
+            return RedirectToAction("DisplayPhonesGrid", "Phones");
         }
         [HttpPost]
         public IActionResult RemoveFavoritePhone(int ArtNr)

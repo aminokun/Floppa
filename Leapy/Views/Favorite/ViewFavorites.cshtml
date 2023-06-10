@@ -106,6 +106,33 @@
             </div>
         }
 
+        @if (Model.FavoriteBooks.Count > 0)
+        {
+            @foreach (var book in Model.FavoriteBooks)
+            {
+                <div class="phone-item">
+                    <a class="clickable" href="/Books/Details/@book.UPC">
+                        <img class="phone-image" src="@book.ImageUrl" />
+                        <h2 class="title">@book.Title</h2>
+                        <p class="price">$@book.Price</p>
+                    </a>
+
+                    <div class="buttons">
+                        <form method="post" action="/Favorite/RemoveFavoriteBook">
+                            <input type="hidden" name="UPC" value="@book.UPC" />
+                            <button class="remove" type="submit">Remove from Favorites</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="text-center">
+                <p class="no-items-message">No items found. Visit <a href="/Book/DisplayBooksGrid">Books</a> to add items to the list.</p>
+            </div>
+        }
+
     </div>
 </body>
 </html>
