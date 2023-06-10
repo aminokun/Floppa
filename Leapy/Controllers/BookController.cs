@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Leapy.Controllers
 {
-    public class BooksController : Controller
+    public class BookController : Controller
     {
         private readonly BookService _bookService;
 
-        public BooksController(BookService bookService)
+        public BookController(BookService bookService)
         {
             _bookService = bookService;
         }
