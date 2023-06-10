@@ -105,13 +105,8 @@
                 <p class="no-items-message">No items found. Visit <a href="/Phones/DisplayPhonesGrid">Phones</a> to add items to the list.</p>
             </div>
         }
-        <br />
 
-        <div class="text-center">
-            <h1 class="display-4">Favorite Books</h1>
-            <br />
-        </div>
-        <div class="phone-grid">
+
         @if (Model.FavoriteBooks.Count > 0)
         {
             @foreach (var book in Model.FavoriteBooks)
