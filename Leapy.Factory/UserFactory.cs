@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace Leapy.Factory
 {
-    public class BookFactory
+    public class UserFactory
     {
-        public IBook UseBookDAL(string dataType)
+        public IUser UseUserDAL(string dataType)
         {
             switch (dataType)
             {
-                case "Book":
-                    return new BookDataAccess();
+                case "User":
+                    return new UserDataAccess();
                 default:
-                    throw new Exception("Invalid DataType");
+                    throw new Exception("Not a valid Data type");
             }
         }
     }

@@ -9,10 +9,10 @@ namespace Leapy.Logic.Services
     {
         private readonly IBook _bookDataAccess;
 
-
-        public BookService(IBook bookDataAccess)
+        public BookService()
         {
-            _bookDataAccess = bookDataAccess;
+            BookFactory bookFactory = new BookFactory();
+            _bookDataAccess = bookFactory.UseBookDAL("Book");
         }
 
         public List<Book> GetBooks()

@@ -9,13 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leapy.Logic", "..\Leapy.Log
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leapy.Data", "..\Leapy.Data\Leapy.Data.csproj", "{9B8B475B-79F7-4D16-804E-31DA8C1EC608}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leapy.DTO", "..\Leapy.DTO\Leapy.DTO.csproj", "{9F98875F-3860-4421-B3A9-C0EB9B0AB98B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leapy.DTO", "..\Leapy.DTO\Leapy.DTO.csproj", "{9F98875F-3860-4421-B3A9-C0EB9B0AB98B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leapy.Factory", "..\Leapy.Factory\Leapy.Factory.csproj", "{4B7BA2BE-2323-4993-BE34-6470679BF144}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leapy.Factory", "..\Leapy.Factory\Leapy.Factory.csproj", "{4B7BA2BE-2323-4993-BE34-6470679BF144}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leapy.Interfaces", "..\Leapy.Interfaces\Leapy.Interfaces.csproj", "{E734B0C9-6531-4645-A9E9-BF89F1D9F454}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leapy.Interfaces", "..\Leapy.Interfaces\Leapy.Interfaces.csproj", "{E734B0C9-6531-4645-A9E9-BF89F1D9F454}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leapy.Models", "..\Leapy.Models\Leapy.Models.csproj", "{72AD2528-18F7-4E1B-8029-2FFD418B0EE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leapy.Models", "..\Leapy.Models\Leapy.Models.csproj", "{72AD2528-18F7-4E1B-8029-2FFD418B0EE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leapy.UnitTests", "..\LeapyUnitTests\Leapy.UnitTests.csproj", "{5532A649-FCCC-4444-AF45-47EEC02ADDC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{72AD2528-18F7-4E1B-8029-2FFD418B0EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72AD2528-18F7-4E1B-8029-2FFD418B0EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72AD2528-18F7-4E1B-8029-2FFD418B0EE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5532A649-FCCC-4444-AF45-47EEC02ADDC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5532A649-FCCC-4444-AF45-47EEC02ADDC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5532A649-FCCC-4444-AF45-47EEC02ADDC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5532A649-FCCC-4444-AF45-47EEC02ADDC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

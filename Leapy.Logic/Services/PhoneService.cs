@@ -1,4 +1,5 @@
 ﻿using Leapy.DTO.DataModels;
+using Leapy.Factory;
 using Leapy.Interfaces;
 using Leapy.Models;
 
@@ -6,11 +7,12 @@ namespace Leapy.Logic.Services
 {
     public class PhoneService
     {
-        private readonly ISmartphone _phoneDataAccess;
+        private readonly IPhone _phoneDataAccess;
 
-        public PhoneService(ISmartphone phoneDataAccess)
+        public PhoneService()
         {
-            _phoneDataAccess = phoneDataAccess;
+            PhoneFactory phoneFactory = new PhoneFactory();
+            _phoneDataAccess = phoneFactory.UsePhoneDAL("Phone");
         }
 
         public List<Phone> GetPhones()

@@ -1,5 +1,6 @@
 ﻿using Leapy.Interfaces;
 using Leapy.DTO.DataModels;
+using Leapy.Factory;
 
 namespace Leapy.Logic.Services
 {
@@ -7,9 +8,10 @@ namespace Leapy.Logic.Services
     {
         private readonly IUser _userDataAccess;
 
-        public UserService(IUser userDataAccess)
+        public UserService()
         {
-            _userDataAccess = userDataAccess;
+            UserFactory userFactory = new UserFactory();
+            _userDataAccess = userFactory.UseUserDAL("User");   
         }
 
         public async Task<UserDTO?> GetUserByEmailAsync(string email)

@@ -2,7 +2,7 @@
 
 namespace Leapy.Interfaces
 {
-    public interface ISmartphone
+    public interface IPhone
     {
         List<PhoneDTO> GetPhones();
         PhoneDTO GetPhoneByArtNr(int ArtNr);

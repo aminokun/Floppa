@@ -1,21 +1,24 @@
-﻿using Leapy.DTO.DataModels;
+﻿using Leapy.Data.Repositories;
 using Leapy.Interfaces;
-using Leapy.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Leapy.Factory
 {
-    public class PhoneFactory : ISmartphoneFactory
+    public class PhoneFactory
     {
-        public Phone CreatePhone(PhoneDTO phoneDTO)
+        public IPhone UsePhoneDAL(string dataType)
         {
-            return new Phone
+            switch (dataType)
             {
-                ArtNr = phoneDTO.ArtNr,
-                ImageUrl = phoneDTO.ImageUrl,
-                Title = phoneDTO.Title,
-                Price = phoneDTO.Price,
-                IsFavorite = phoneDTO.IsFavorite
-            };
+                case "Phone":
+                    return new PhoneDataAccess();
+                default:
+                    throw new Exception("Invalid data type");
+            }
         }
     }
 }

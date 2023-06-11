@@ -4,7 +4,7 @@ using Leapy.Interfaces;
 
 namespace Leapy.Data.Repositories
 {
-    public class PhoneDataAccess : ISmartphone
+    public class PhoneDataAccess : IPhone
     {
         string connectionString = "Server=192.168.178.27,3306;Database=Leapy;Uid=Scraper;Pwd=123Scraper21!;";
             
@@ -44,12 +44,14 @@ namespace Leapy.Data.Repositories
             string query = "SELECT * FROM phones WHERE ArtNr = @ArtNr";
             MySqlCommand command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@ArtNr", ArtNr);
-            
+
             MySqlDataReader reader = command.ExecuteReader();
 
-            var phone = new PhoneDTO();
+            PhoneDTO phone = null;
+
             if (reader.Read())
             {
+                phone = new PhoneDTO();
                 phone.ImageUrl = reader["ImageUrl"].ToString();
                 phone.Title = reader["title"].ToString();
                 phone.Price = Convert.ToDecimal(reader["price"]);
@@ -61,6 +63,7 @@ namespace Leapy.Data.Repositories
 
             return phone;
         }
+
 
         public List<PhoneDTO> GetFavoritePhones(int userId)
         {
