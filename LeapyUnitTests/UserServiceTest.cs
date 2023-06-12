@@ -55,7 +55,7 @@ namespace Leapy.UnitTests
         {
             // Arrange
             string email = "test@example.com";
-            string password = "password";
+            string password = "passwordsdad";
             UserDTO user = new UserDTO { Email = email, Password = BCrypt.Net.BCrypt.HashPassword("wrongpassword") };
             _userDataAccessMock.Setup(x => x.GetUserByEmailAsync(email)).ReturnsAsync(user);
 

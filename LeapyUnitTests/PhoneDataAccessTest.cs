@@ -1,4 +1,5 @@
 using Leapy.Data.Repositories;
+using Leapy.Data.Tests;
 using Leapy.DTO.DataModels;
 
 namespace Leapy.Tests
@@ -6,19 +7,19 @@ namespace Leapy.Tests
     [TestFixture]
     public class PhoneDataAccessTests
     {
-        private PhoneDataAccess _phoneDataAccess;
+        private TestPhoneDataAccess _testPhoneDataAccess;
 
         [SetUp]
         public void SetUp()
         {
-            _phoneDataAccess = new PhoneDataAccess();
+            _testPhoneDataAccess = new TestPhoneDataAccess();
         }
 
         [Test]
         public void GetPhones_ReturnsListOfPhones()
         {
             // Act
-            List<PhoneDTO> phones = _phoneDataAccess.GetPhones();
+            List<PhoneDTO> phones = _testPhoneDataAccess.GetPhones();
 
             // Assert
             Assert.NotNull(phones);
@@ -30,10 +31,10 @@ namespace Leapy.Tests
         public void GetPhoneByArtNr_ExistingArtNr_ReturnsPhone()
         {
             // Arrange
-            int existingArtNr = 1734083;
+            int existingArtNr = 1;
 
             // Act
-            PhoneDTO phone = _phoneDataAccess.GetPhoneByArtNr(existingArtNr);
+            PhoneDTO phone = _testPhoneDataAccess.GetPhoneByArtNr(existingArtNr);
 
             // Assert
             Assert.NotNull(phone);
@@ -47,7 +48,7 @@ namespace Leapy.Tests
             int nonExistingArtNr = 9999;
 
             // Act
-            PhoneDTO phone = _phoneDataAccess.GetPhoneByArtNr(nonExistingArtNr);
+            PhoneDTO phone = _testPhoneDataAccess.GetPhoneByArtNr(nonExistingArtNr);
 
             // Assert
             Assert.Null(phone);
@@ -60,7 +61,7 @@ namespace Leapy.Tests
             int userId = 1;
 
             // Act
-            List<PhoneDTO> favoritePhones = _phoneDataAccess.GetFavoritePhones(userId);
+            List<PhoneDTO> favoritePhones = _testPhoneDataAccess.GetFavoritePhones(userId);
 
             // Assert
             Assert.NotNull(favoritePhones);

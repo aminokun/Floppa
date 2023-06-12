@@ -11,9 +11,9 @@ namespace Leapy.Controllers
     {
         private readonly UserService _userService;
 
-        public AccountController(UserService userService)
+        public AccountController()
         {
-            _userService = userService;
+            _userService = new UserService();
         }
 
         [HttpGet]

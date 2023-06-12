@@ -3,15 +3,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Dependency Injection
-builder.Services.AddTransient<FavoriteService>();
-builder.Services.AddTransient<UserService>();
-builder.Services.AddTransient<PhoneService>();
-builder.Services.AddTransient<BookService>();
-
-
-
-
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

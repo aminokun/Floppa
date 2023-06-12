@@ -1,10 +1,5 @@
 ﻿using Leapy.Data.Repositories;
 using Leapy.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Leapy.Factory
 {

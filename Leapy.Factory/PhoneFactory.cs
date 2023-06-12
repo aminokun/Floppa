@@ -1,10 +1,6 @@
 ﻿using Leapy.Data.Repositories;
+using Leapy.Data.Tests;
 using Leapy.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Leapy.Factory
 {
@@ -16,6 +12,8 @@ namespace Leapy.Factory
             {
                 case "Phone":
                     return new PhoneDataAccess();
+                case "TestPhone":
+                    return new TestPhoneDataAccess();
                 default:
                     throw new Exception("Invalid data type");
             }

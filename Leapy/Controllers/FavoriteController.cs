@@ -14,12 +14,12 @@ namespace Leapy.Controllers
         private readonly BookService _bookService;
         private readonly PhoneService _phoneService;
 
-        public FavoriteController(FavoriteService favoriteService, UserService userService, BookService bookService, PhoneService phoneService)
+        public FavoriteController()
         {
-            _favoriteService = favoriteService;
-            _userService = userService;
-            _bookService = bookService;
-            _phoneService = phoneService;
+            _favoriteService = new FavoriteService();
+            _userService = new UserService();
+            _bookService = new BookService();
+            _phoneService =  new PhoneService();
         }
 
         [HttpGet]
